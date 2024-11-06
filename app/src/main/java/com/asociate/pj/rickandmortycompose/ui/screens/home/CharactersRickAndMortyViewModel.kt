@@ -4,20 +4,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.asociate.pj.rickandmortycompose.ui.data.CharacterModelRickAndMorty
-import com.asociate.pj.rickandmortycompose.ui.data.characters
+import androidx.lifecycle.viewModelScope
+import com.asociate.pj.rickandmortycompose.ui.data.entity.CharacterModelRickAndMorty
+import com.asociate.pj.rickandmortycompose.ui.data.repository.RickAndMortyRepository
+import kotlinx.coroutines.launch
 
 class CharactersRickAndMortyViewModel : ViewModel() {
+
+    private val repository = RickAndMortyRepository()
 
     var state by mutableStateOf(UiState())
         private set
 
     fun onUiReady() {
-        state = UiState(loading = true)
-        state = UiState(
-            characters = characters,
-            loading = false
-        )
+        viewModelScope.launch {
+            state = UiState(loading = true)
+            state = UiState(
+                characters = repository.fetchRickAndMorty(),
+                loading = false
+            )
+        }
     }
 
     data class UiState(

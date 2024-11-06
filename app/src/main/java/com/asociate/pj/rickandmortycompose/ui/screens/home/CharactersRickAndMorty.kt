@@ -1,6 +1,7 @@
 package com.asociate.pj.rickandmortycompose.ui.screens.home
 
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,14 +21,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.asociate.pj.rickandmortycompose.ui.data.CharacterModelRickAndMorty
+import com.asociate.pj.rickandmortycompose.ui.data.entity.CharacterModelRickAndMorty
 import com.asociate.pj.rickandmortycompose.ui.screens.Screen
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,9 +40,11 @@ fun CharactersRickAndMorty(
     viewModel: CharactersRickAndMortyViewModel = viewModel(),
     onCharacterDetailClick: (CharacterModelRickAndMorty) -> Unit
 ) {
-    Screen {
-        val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+    LaunchedEffect(Unit) {
         viewModel.onUiReady()
+    }
+    Screen {
         Scaffold(
             topBar = {
                 // TopAppBar(title = { Text(text = "Rick and Morty") })
@@ -74,7 +81,7 @@ fun CharactersRickAndMorty(
 }
 
 @Composable
-fun CharacterItem(character: CharacterModelRickAndMorty,onClick: () -> Unit) {
+fun CharacterItem(character: CharacterModelRickAndMorty, onClick: () -> Unit) {
     Column(
         modifier = Modifier.clickable(onClick =  onClick),
         horizontalAlignment = Alignment.CenterHorizontally

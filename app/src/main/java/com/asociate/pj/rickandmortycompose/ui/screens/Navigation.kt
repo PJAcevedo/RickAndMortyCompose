@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.asociate.pj.rickandmortycompose.ui.data.CharacterModelRickAndMorty
 import com.asociate.pj.rickandmortycompose.ui.screens.detail.CharacterDetail
 import com.asociate.pj.rickandmortycompose.ui.screens.detail.CharacterDetailRickAndMortyViewModel
 import com.asociate.pj.rickandmortycompose.ui.screens.home.CharactersRickAndMorty

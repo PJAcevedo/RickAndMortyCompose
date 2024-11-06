@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,13 +19,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.asociate.pj.rickandmortycompose.R
-import com.asociate.pj.rickandmortycompose.ui.data.CharacterModelRickAndMorty
 import com.asociate.pj.rickandmortycompose.ui.screens.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,20 +55,32 @@ fun CharacterDetail(
                     .padding(paddingValues)
                     .verticalScroll(rememberScrollState())
             ) {
-                AsyncImage(
-                    model = state.character?.image,
-                    contentDescription = state.character?.name,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(16 / 9f)
-                )
+                if (state.loading) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+                state.character?.let {
+                    AsyncImage(
+                        model = it.image,
+                        contentDescription = it.name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16 / 9f)
+                    )
 
-                Text(
-                    text = state.character?.name.orEmpty(),
-                    modifier = Modifier.padding(16.dp),
-                    style = MaterialTheme.typography.headlineMedium
-                )
+                    Text(
+                        text = it.location.name,
+                        modifier = Modifier.padding(16.dp),
+                        style = MaterialTheme.typography.headlineMedium
+                    )
+                }
             }
         }
     }
