@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.asociate.pj.rickandmortycompose.ui.data.CharacterModelRickAndMorty
 import com.asociate.pj.rickandmortycompose.ui.screens.detail.CharacterDetail
+import com.asociate.pj.rickandmortycompose.ui.screens.detail.CharacterDetailRickAndMortyViewModel
 import com.asociate.pj.rickandmortycompose.ui.screens.home.CharactersRickAndMorty
 
 @Composable
@@ -29,7 +30,7 @@ fun Navigation() {
         ) {
             val characterId = requireNotNull(it.arguments?.getInt("characterId"))
             CharacterDetail(
-                characterModel = CharacterModelRickAndMorty(characterId, "Ricky", "https://rickandmortyapi.com/api/character/avatar/$characterId.jpeg"),
+                viewModel = CharacterDetailRickAndMortyViewModel(characterId),
                 onBack = { navController.popBackStack() }
             )
         }

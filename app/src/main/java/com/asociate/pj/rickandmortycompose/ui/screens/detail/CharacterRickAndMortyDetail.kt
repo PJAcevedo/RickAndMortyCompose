@@ -30,13 +30,14 @@ import com.asociate.pj.rickandmortycompose.ui.screens.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterDetail(
-    characterModel: CharacterModelRickAndMorty,
+    viewModel: CharacterDetailRickAndMortyViewModel,
     onBack: () -> Unit
 ) {
+    val state = viewModel.state
     Screen {
         Scaffold(
             topBar = {
-                TopAppBar(title = { Text(text = characterModel.name) } ,
+                TopAppBar(title = { Text(text = state.character?.name.orEmpty()) } ,
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
@@ -53,8 +54,8 @@ fun CharacterDetail(
                     .verticalScroll(rememberScrollState())
             ) {
                 AsyncImage(
-                    model = characterModel.image,
-                    contentDescription = characterModel.name,
+                    model = state.character?.image,
+                    contentDescription = state.character?.name,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -62,7 +63,7 @@ fun CharacterDetail(
                 )
 
                 Text(
-                    text = characterModel.name,
+                    text = state.character?.name.orEmpty(),
                     modifier = Modifier.padding(16.dp),
                     style = MaterialTheme.typography.headlineMedium
                 )
