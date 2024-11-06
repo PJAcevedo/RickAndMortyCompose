@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.asociate.pj.rickandmortycompose.ui.screens.Navigation
 import com.asociate.pj.rickandmortycompose.ui.screens.detail.CharacterDetail
 import com.asociate.pj.rickandmortycompose.ui.screens.home.CharactersRickAndMorty
 import com.asociate.pj.rickandmortycompose.ui.theme.RickAndMortyComposeTheme
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            CharactersRickAndMorty()
+            Navigation()
         }
     }
 }

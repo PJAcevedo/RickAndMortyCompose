@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -26,11 +27,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.asociate.pj.rickandmortycompose.ui.data.CharacterModelRickAndMorty
+import com.asociate.pj.rickandmortycompose.ui.data.characters
 import com.asociate.pj.rickandmortycompose.ui.screens.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharactersRickAndMorty() {
+fun CharactersRickAndMorty(
+    onCharacterDetailClick: (CharacterModelRickAndMorty) -> Unit
+) {
     Screen {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         Scaffold(
@@ -50,14 +54,8 @@ fun CharactersRickAndMorty() {
                 contentPadding = paddingValues,
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp)
             ) {
-                items(20) {
-                    // CharacterItem(character = it) { onCharacterClick(it) }
-                    CharacterItem(
-                        character = CharacterModelRickAndMorty(
-                            name = "Rick",
-                            image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-                        )
-                    ) { Log.e("CharactersRickAndMorty", "Character clicked")}
+                items(characters) {
+                    CharacterItem(it) { onCharacterDetailClick(it) }
                 }
             }
         }

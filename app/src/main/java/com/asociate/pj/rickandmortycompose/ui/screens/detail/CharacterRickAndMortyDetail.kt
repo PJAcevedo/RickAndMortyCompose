@@ -29,11 +29,10 @@ import com.asociate.pj.rickandmortycompose.ui.screens.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CharacterDetail(onBack: () -> Unit) {
-    val characterModel = CharacterModelRickAndMorty(
-        name = "Rick",
-        image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-    )
+fun CharacterDetail(
+    characterModel: CharacterModelRickAndMorty,
+    onBack: () -> Unit
+) {
     Screen {
         Scaffold(
             topBar = {
